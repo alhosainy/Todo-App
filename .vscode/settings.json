@@ -1,0 +1,19 @@
+{
+  "cSpell.words": [
+    "addtodo",
+    "ASYM",
+    "autofocus",
+    "Autovalidate",
+    "dimens",
+    "fenix",
+    "shortid",
+    "Todos",
+    "viewmodel"
+  ],
+  "files.exclude": {
+    "**/todo.g.dart": true,
+    "**/todo.freezed.dart": true,
+    "**/todos.g.dart": true,
+    "**/todos.freezed.dart": true
+  }
+}

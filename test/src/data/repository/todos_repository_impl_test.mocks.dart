@@ -88,8 +88,6 @@ class MockFiles extends _i1.Mock implements _i2.Files {
 /// See the documentation for Mockito's code generation for more information.
 class MockTodosRepositoryImpl extends _i1.Mock
     implements _i5.TodosRepositoryImpl {
-  MockTodosRepositoryImpl(MockFiles files);
-
   @override
   _i2.Files get files => (super.noSuchMethod(
         Invocation.getter(#files),

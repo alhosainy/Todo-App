@@ -12,5 +12,15 @@ class Todos with _$Todos {
     @Default([]) List<Todo> todos,
   }) = _Todo;
 
+  const Todos._();
+
+  List<Todo> get completed {
+    return todos.where((todo) => todo.completed).toList();
+  }
+
+  List<Todo> get unCompleted {
+    return todos.where((todo) => !todo.completed).toList();
+  }
+
   factory Todos.fromJson(Map<String, Object?> json) => _$TodosFromJson(json);
 }

@@ -43,7 +43,7 @@ void main() {
   group('TodosRepositoryTmp Test', () {
     MockFiles files =
         MockFiles(); // You may need to create a mock or test version of Files class for testing.
-    MockTodosRepositoryImpl repository = MockTodosRepositoryImpl(files);
+    MockTodosRepositoryImpl repository = MockTodosRepositoryImpl();
 
     // Helper function to create a sample Todo object
     Todo createSampleTodo(
@@ -104,7 +104,6 @@ void main() {
       Todos updatedTodos = await repository.loadTodos();
       expect(updatedTodos.todos.contains(sampleTodo), false);
     });
-
   });
 }
 //TODO create a test for [TodosRepositoryImpl.deleteAllTodos],[TodosRepositoryImpl.deleteTodoById],

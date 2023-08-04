@@ -17,12 +17,13 @@ A simple todo app.
 
 ## Note
 
-- this project is built using clean architecture pattern [more information](https://github.com/Flutterando/Clean-Dart/blob/master/README_en.md)
+- this project is built using **clean architecture** pattern [more information](https://github.com/Flutterando/Clean-Dart/blob/master/README_en.md)
 
 ## App preview
 
 there is no images here cause the app is in the production phase
-//TODO Add images
+
+- [ ] Add images
 
 ## To Download the app
 
@@ -36,4 +37,4 @@ you can follow this links to go to the app store page
 
 [Web]()
 
-//TODO : add links to stores
+- [ ] add links to stores

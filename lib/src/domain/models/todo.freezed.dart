@@ -23,7 +23,7 @@ mixin _$Todo {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  dynamic get completed => throw _privateConstructorUsedError;
+  bool get completed => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $TodoCopyWith<$Res> {
   factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
       _$TodoCopyWithImpl<$Res, Todo>;
   @useResult
-  $Res call({String id, String title, String? description, dynamic completed});
+  $Res call({String id, String title, String? description, bool completed});
 }
 
 /// @nodoc
@@ -54,7 +54,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
     Object? id = null,
     Object? title = null,
     Object? description = freezed,
-    Object? completed = freezed,
+    Object? completed = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -69,10 +69,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      completed: freezed == completed
+      completed: null == completed
           ? _value.completed
           : completed // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as bool,
     ) as $Val);
   }
 }
@@ -83,7 +83,7 @@ abstract class _$$_TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
       __$$_TodoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, String? description, dynamic completed});
+  $Res call({String id, String title, String? description, bool completed});
 }
 
 /// @nodoc
@@ -98,7 +98,7 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
     Object? id = null,
     Object? title = null,
     Object? description = freezed,
-    Object? completed = freezed,
+    Object? completed = null,
   }) {
     return _then(_$_Todo(
       id: null == id
@@ -113,7 +113,10 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      completed: freezed == completed ? _value.completed! : completed,
+      completed: null == completed
+          ? _value.completed
+          : completed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -137,7 +140,7 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
   final String? description;
   @override
   @JsonKey()
-  final dynamic completed;
+  final bool completed;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -164,13 +167,14 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            const DeepCollectionEquality().equals(other.completed, completed));
+            (identical(other.completed, completed) ||
+                other.completed == completed));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, description,
-      const DeepCollectionEquality().hash(completed));
+  int get hashCode =>
+      Object.hash(runtimeType, id, title, description, completed);
 
   @JsonKey(ignore: true)
   @override
@@ -191,7 +195,7 @@ abstract class _Todo implements Todo {
       {required final String id,
       required final String title,
       required final String? description,
-      final dynamic completed}) = _$_Todo;
+      final bool completed}) = _$_Todo;
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$_Todo.fromJson;
 
@@ -202,7 +206,7 @@ abstract class _Todo implements Todo {
   @override
   String? get description;
   @override
-  dynamic get completed;
+  bool get completed;
   @override
   @JsonKey(ignore: true)
   _$$_TodoCopyWith<_$_Todo> get copyWith => throw _privateConstructorUsedError;

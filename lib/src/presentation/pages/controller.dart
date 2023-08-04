@@ -3,10 +3,22 @@ import 'package:get/get.dart';
 
 import '../viewmodel/controller.dart';
 
-class AddTodoController extends GetxController {
+class EditTodoController extends GetxController {
   final Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
   final title = TextEditingController().obs;
   final description = TextEditingController().obs;
   RxBool isCompleted = false.obs;
-  final controller = Get.put(ListController()).obs;
+  RxBool edited = false.obs;
+  final controller = Get.put(ViewModelController()).obs;
+  final model = Get.find<ViewModelController>();
+  
+
+  clearValues() {
+    title.value.clear();
+    description.value.clear();
+    isCompleted.value = false;
+    title.refresh();
+    description.refresh();
+    isCompleted.refresh();
+  }
 }

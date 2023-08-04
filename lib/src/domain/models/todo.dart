@@ -11,7 +11,7 @@ class Todo with _$Todo {
     required String id,
     required String title,
     required String? description,
-    @Default(false) completed,
+    @Default(false) bool completed,
   }) = _Todo;
 
   factory Todo.fromJson(Map<String, Object?> json) => _$TodoFromJson(json);

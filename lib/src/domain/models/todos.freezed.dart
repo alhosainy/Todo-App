@@ -90,8 +90,10 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodosCopyWithImpl<$Res, _$_Todo>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Todo with DiagnosticableTreeMixin implements _Todo {
-  const _$_Todo({final List<Todo> todos = const []}) : _todos = todos;
+class _$_Todo extends _Todo with DiagnosticableTreeMixin {
+  const _$_Todo({final List<Todo> todos = const []})
+      : _todos = todos,
+        super._();
 
   factory _$_Todo.fromJson(Map<String, dynamic> json) => _$$_TodoFromJson(json);
 
@@ -144,8 +146,9 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
   }
 }
 
-abstract class _Todo implements Todos {
+abstract class _Todo extends Todos {
   const factory _Todo({final List<Todo> todos}) = _$_Todo;
+  const _Todo._() : super._();
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$_Todo.fromJson;
 

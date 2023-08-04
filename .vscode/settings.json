@@ -6,9 +6,12 @@
     "Autovalidate",
     "cupertino",
     "dimens",
+    "EDITTODO",
     "fenix",
     "shortid",
     "Todos",
+    "typedefs",
+    "usecases",
     "viewmodel"
   ],
   "files.exclude": {

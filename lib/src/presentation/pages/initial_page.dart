@@ -22,9 +22,8 @@ class _InitialPageState extends State<InitialPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.background,
       child: Column(children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 200, bottom: 10),

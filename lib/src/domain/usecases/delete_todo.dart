@@ -1,5 +1,5 @@
 import '../models/todo.dart';
 
 abstract class DeleteTodoUseCase {
-  Future<void> call(Todo todo);
+  Future<void> call(String todoId);
 }

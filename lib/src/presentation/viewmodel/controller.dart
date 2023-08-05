@@ -7,7 +7,7 @@ import '../../domain/usecases/controller.dart';
 class ViewModelController extends GetxController {
   var logger = Logger().obs;
 
-  final Rx<Todos> todosList = const Todos(todos: []).obs;
+  final Rx<Todos> todosList = Todos(todos: []).obs;
   final UseCaseController todosListController =
       Get.put<UseCaseController>(UseCaseController());
   final RxList<Todo> activeTodos = <Todo>[].obs;
@@ -35,7 +35,8 @@ class ViewModelController extends GetxController {
     return await todosListController.getTodoController.value.call(id);
   }
 
-  // RxList<Todo> get unCompletedTodos => todosList.value.unCompleted.obs;
-
-  // RxList<Todo> get completedTodos => todosList.value.completed.obs;
+  Future<void> deleteTodo(String todoId) async {
+    await todosListController.deleteTodoUseCase.value.call(todoId);
+    await getTodos();
+  }
 }

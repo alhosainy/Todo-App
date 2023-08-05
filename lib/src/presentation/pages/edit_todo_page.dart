@@ -40,20 +40,21 @@ class TodoEdit extends StatelessWidget {
 
     // ignore: no_leading_underscores_for_local_identifiers
     Future<bool> _onWillPop() async {
-      Get.defaultDialog(
+      print(controller.isEdited.value);
+      if (controller.isEdited.value != false) {
+        Get.defaultDialog(
           title: 'Discard changes?',
           middleText: 'Are you sure you want to discard changes?',
-          confirm: TextButton(
-            child: const Text('Yes'),
-            onPressed: () {
-              controller.clearValues();
-              Get.offAllNamed(Routes.HOME);
-            },
-          ),
-          cancel: TextButton(
-            onPressed: () => Get.back(),
-            child: const Text('No'),
-          ));
+          textConfirm: 'Yes',
+          onConfirm: () {
+            controller.clearValues();
+            Get.until((route) => Get.currentRoute == Routes.HOME);
+          },
+          textCancel: 'No',
+        );
+      } else {
+        return true;
+      }
       return false;
     }
 
@@ -66,7 +67,17 @@ class TodoEdit extends StatelessWidget {
           title: const Text('Add Todo'),
           centerTitle: true,
           actions: [
-            //TODO add delete button
+            todoId != null
+                ? IconButton(
+                    onPressed: () {
+                      model.deleteTodo(todoId!);
+                      controller.clearValues();
+                      ScaffoldMessenger.of(context).toast('Todo Deleted!');
+
+                      Get.until((route) => Get.currentRoute == Routes.HOME);
+                    },
+                    icon: const Icon(Icons.delete))
+                : Container(),
           ],
         ),
         body: Scrollbar(
@@ -84,7 +95,8 @@ class TodoEdit extends StatelessWidget {
                       decoration: const InputDecoration(
                         labelText: 'Title',
                       ),
-                      onChanged: (_) => controller.edited.value = true,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (_) => controller.isEdited.value = true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a title';
@@ -97,13 +109,15 @@ class TodoEdit extends StatelessWidget {
                       decoration: const InputDecoration(
                         labelText: 'Description',
                       ),
-                      onChanged: (_) => controller.edited.value = true,
+                      textInputAction: TextInputAction.done,
+                      onChanged: (_) => controller.isEdited.value = true,
                     ),
                     Obx(() {
                       return CheckboxListTile(
                           title: const Text('Completed'),
                           value: controller.isCompleted.value,
                           onChanged: (value) {
+                            controller.isEdited.value = true;
                             controller.isCompleted.value = value!;
                             controller.isCompleted.refresh();
                           });
@@ -128,9 +142,7 @@ class TodoEdit extends StatelessWidget {
 
               await model.save(todo);
               controller.clearValues();
-              Get.snackbar('hurray!', 'Todo saved!');
               ScaffoldMessenger.of(context).toast('Todo saved!');
-
               Get.back(closeOverlays: true);
             }
           },

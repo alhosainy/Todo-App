@@ -137,15 +137,6 @@ class MockTodosRepositoryImpl extends _i1.Mock
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> deleteTodo(_i6.Todo? todo) => (super.noSuchMethod(
-        Invocation.method(
-          #deleteTodo,
-          [todo],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-  @override
   _i4.Future<void> deleteTodoById(String? id) => (super.noSuchMethod(
         Invocation.method(
           #deleteTodoById,

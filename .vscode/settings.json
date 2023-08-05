@@ -14,10 +14,10 @@
     "usecases",
     "viewmodel"
   ],
-  "files.exclude": {
-    "**/todo.g.dart": true,
-    "**/todo.freezed.dart": true,
-    "**/todos.g.dart": true,
-    "**/todos.freezed.dart": true
-  }
+  // "files.exclude": {
+  //   "**/todo.g.dart": true,
+  //   "**/todo.freezed.dart": true,
+  //   "**/todos.g.dart": true,
+  //   "**/todos.freezed.dart": true
+  // }
 }

@@ -8,7 +8,7 @@ part 'todos.g.dart';
 
 @freezed
 class Todos with _$Todos {
-  const factory Todos({
+  factory Todos({
     @Default([]) List<Todo> todos,
   }) = _Todo;
 

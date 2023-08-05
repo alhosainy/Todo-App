@@ -8,7 +8,6 @@ abstract class TodosRepository {
 
   Future<void> deleteAllTodos();
 
-  Future<void> deleteTodo(Todo todo);
 
   Future<void> deleteTodoById(String id);
 

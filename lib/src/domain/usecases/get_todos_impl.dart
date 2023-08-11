@@ -8,9 +8,6 @@ class GetTodosUseCaseImpl extends GetTodosUseCase {
 
   @override
   Future<Todos> call() async {
-    final x = await repository.loadTodos();
-    print(x.todos.length);
-
     return await repository.loadTodos();
   }
   

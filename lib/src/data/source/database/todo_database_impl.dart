@@ -1,10 +1,9 @@
-import 'package:collection/collection.dart';
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:to_do_app/src/data/source/database/todo_database.dart';
+
+import 'todo_database.dart';
 
 import '../../../domain/models/todo.dart';
-import 'package:path/path.dart';
-
 import '../../../domain/models/todos.dart';
 
 const String tableTodo = 'todo';
@@ -18,42 +17,16 @@ class TodoDatabaseControllerImpl extends TodoDatabaseController {
   late Database db;
 
   @override
-  Future openDb() async {
-    // Get a location using getDatabasesPath
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'todo.db');
+  Future close() async => await db.close();
 
-    db = await openDatabase(path, version: 1,
-        onCreate: (Database db, int version) async {
-      await db.execute('''
-create table $tableTodo ( 
-  $columnId integer primary key autoincrement, 
-  $columntodoId text not null,
-  $columnTitle text not null,
-  $columnDescription text not null,
-  $columnCompleted integer not null)
-''');
-    });
+  @override
+  Future<void> deleteAllTodos() async {
+    await db.delete(tableTodo);
   }
 
   @override
-  Future<int> insertTodo(Todo todo) async {
-    final todos = await db.query(tableTodo,//FIXME
-        columns: [columnId, columntodoId, columnCompleted, columnTitle],
-        where: '$columntodoId = ?',
-        whereArgs: [todo.todoId])?? [];
-
-    if (todos.isNotEmpty) {
-      todos.forEach((element) async {
-        await deleteTodo(todo.todoId);
-      });
-    }
-
-    final todoMap = todo.toJson();
-    todoMap['completed'] == true
-        ? todoMap['completed'] = 1
-        : todoMap['completed'] = 0;
-    return await db.insert(tableTodo, todoMap);
+  Future<void> deleteTodo(String todoId) async {
+    await db.delete(tableTodo, where: '$columntodoId = ?', whereArgs: [todoId]);
   }
 
   @override
@@ -82,21 +55,48 @@ create table $tableTodo (
   }
 
   @override
-  Future<void> deleteTodo(String todoId) async {
-    await db.delete(tableTodo, where: '$columntodoId = ?', whereArgs: [todoId]);
+  Future<int> insertTodo(Todo todo) async {
+    await openDb();
+    final todos = await db.query(tableTodo,
+        columns: [columnId, columntodoId, columnCompleted, columnTitle],
+        where: '$columntodoId = ?',
+        whereArgs: [todo.todoId]);
+
+    if (todos.isNotEmpty) {
+      for (final _ in todos) {
+        await deleteTodo(todo.todoId);
+      }
+    }
+
+    final todoMap = todo.toJson();
+    todoMap['completed'] == true
+        ? todoMap['completed'] = 1
+        : todoMap['completed'] = 0;
+    return await db.insert(tableTodo, todoMap);
+  }
+
+  @override
+  Future openDb() async {
+    // Get a location using getDatabasesPath
+    var databasesPath = await getDatabasesPath();
+    String path = join(databasesPath, 'todo.db');
+
+    db = await openDatabase(path, version: 1,
+        onCreate: (Database db, int version) async {
+      await db.execute('''
+create table $tableTodo ( 
+  $columnId integer primary key autoincrement, 
+  $columntodoId text not null,
+  $columnTitle text not null,
+  $columnDescription text not null,
+  $columnCompleted integer not null)
+''');
+    });
   }
 
   @override
   Future<void> updateTodo(Todo todo) async {
     await db.update(tableTodo, todo.toJson(),
         where: '$columntodoId = ?', whereArgs: [todo.todoId]);
-  }
-
-  @override
-  Future close() async => await db.close();
-
-  @override
-  Future<void> deleteAllTodos() async {
-    await db.delete(tableTodo);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../themes.dart';
 
 import '../../res/colors.dart';
 import '../../res/dimens.dart';
@@ -32,6 +33,20 @@ class MainPage extends StatelessWidget {
             icon: const Icon(Icons.add),
             tooltip: 'Add Todo',
           ),
+          PopupMenuButton(
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  child: const Text('Light Theme'),
+                  onTap: () => Get.changeTheme(lightTheme),
+                ),
+                PopupMenuItem(
+                  child: const Text('Dark Theme'),
+                  onTap: () => Get.changeTheme(darkTheme),
+                ),
+              ];
+            },
+          )
         ],
       ),
       body: Obx(() {

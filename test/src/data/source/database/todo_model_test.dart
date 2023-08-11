@@ -16,6 +16,7 @@ void main() {
   setUp(() async {
     todoProvider = TodoDatabaseControllerImpl();
     sqfliteFfiInit();
+    // ignore: unused_local_variable
     var databaseFactory = databaseFactoryFfi;
 
   });

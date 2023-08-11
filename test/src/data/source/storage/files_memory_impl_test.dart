@@ -1,10 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:to_do_app/src/data/source/storage/files_memory_impl.dart';
 
-class MockFilesMemoryImpl extends FilesMemoryImpl {}
 
 void main() {
-  late MockFilesMemoryImpl mockFiles;
+  late FilesMemoryImpl mockFiles;
 
   setDataForTest() {
     mockFiles.files.addAll({
@@ -15,12 +14,11 @@ void main() {
   }
 
   setUp(() {
-    mockFiles = MockFilesMemoryImpl();
+    mockFiles = FilesMemoryImpl();
   });
 
   test('should not be any data in memory', () {
-    print(mockFiles.files);
-    expect(mockFiles.files, {});
+    expect(mockFiles.files.length, 0);
   });
 
   test('should write data to memory', () async {
@@ -44,7 +42,7 @@ void main() {
     expect(mockFiles.files.length, 2);
   });
 
-  test('  should read data from memory', () async {
+  test('should read data from memory', () async {
     //Arrange
     setDataForTest();
     //Act

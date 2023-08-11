@@ -9,7 +9,7 @@ abstract class TodosRepository {
   Future<void> deleteAllTodos();
 
 
-  Future<void> deleteTodoById(String id);
+  Future<void> deleteTodoById(String todoId);
 
-  Future<Todo?> getTodoById(String id);
+  Future<Todo?> getTodoById(String todoId);
 }

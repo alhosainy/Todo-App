@@ -27,7 +27,7 @@ class MyTodoTile extends StatelessWidget {
           ? Text(todo.description!)
           : null,
       onTap: () {
-        Get.toNamed('${Routes.EDITTODO}${todo.id}');
+        Get.toNamed('${Routes.EDITTODO}${todo.todoId}');
       },
       trailing: Checkbox(
           value: todo.completed,

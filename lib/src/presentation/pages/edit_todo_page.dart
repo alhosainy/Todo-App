@@ -135,7 +135,7 @@ class TodoEdit extends StatelessWidget {
 
               final todo = Todo(
                 description: controller.description.value.value.text,
-                id: todoId ?? shortid.generate(),
+                todoId: todoId ?? shortid.generate(),
                 title: controller.title.value.value.text,
                 completed: controller.isCompleted.value,
               );

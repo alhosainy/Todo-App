@@ -1,51 +1,40 @@
-import 'dart:convert';
-
-import 'package:collection/collection.dart';
-import 'package:to_do_app/src/domain/models/todo.dart';
-
-import 'package:to_do_app/src/domain/models/todos.dart';
-
+import '../../domain/models/todo.dart';
+import '../../domain/models/todos.dart';
 import '../../domain/repository/todos_repository.dart';
-import '../source/storage/files.dart';
+import '../source/database/todo_database.dart';
 
 class TodosRepositoryImpl extends TodosRepository {
-  TodosRepositoryImpl(this.files);
-  final Files files;
-  late final String path = 'todos.json';
+  TodosRepositoryImpl(this.database);
 
-  @override
-  Future<Todos> loadTodos() async {
-    final content = await files.read(path);
-    if (content == null) return Todos(todos: []);
-    return Todos.fromJson(jsonDecode(content));
-  }
+  final TodoDatabaseController database;
 
   @override
   Future<void> deleteAllTodos() async {
-    files.delete(path);
+    await database.deleteAllTodos();
   }
 
   @override
-  Future<void> deleteTodoById(String id) async {
-    final todos = await loadTodos();
-    final newTodos = todos.todos.where((todo) => todo.id != id).toList();
-    await files.write(path, jsonEncode(Todos(todos: newTodos).toJson()));
-    // todos.todos.removeWhere((todo) => todo.id == id);
-    // await files.write(path, jsonEncode(todos.todos));
+  Future<void> deleteTodoById(String todoId) {
+    return database.deleteTodo(todoId);
+  }
+
+  @override
+  Future<Todo?> getTodoById(String todoId) async {
+    return await database.getTodoById(todoId);
+  }
+
+  @override
+  Future<Todos> loadTodos() async {
+    await database.openDb();
+
+    final content = await database.getAllTodos();
+    if (content == null) return Todos(todos: []);
+    return content;
   }
 
   @override
   Future<void> saveTodo(Todo todo) async {
-    final todos = await loadTodos();
-    final newTodos =
-        todos.todos.where((element) => element.id != todo.id).toList();
-    newTodos.add(todo);
-    await files.write(path, jsonEncode(Todos(todos: newTodos).toJson()));
-  }
-
-  @override
-  Future<Todo?> getTodoById(String id) async {
-    final todos = await loadTodos();
-    return todos.todos.firstWhereOrNull((todo) => todo.id == id);
+    await database.openDb();
+    database.insertTodo(todo);
   }
 }

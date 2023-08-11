@@ -40,7 +40,6 @@ class TodoEdit extends StatelessWidget {
 
     // ignore: no_leading_underscores_for_local_identifiers
     Future<bool> _onWillPop() async {
-      print(controller.isEdited.value);
       if (controller.isEdited.value != false) {
         Get.defaultDialog(
           title: 'Discard changes?',
@@ -53,6 +52,8 @@ class TodoEdit extends StatelessWidget {
           textCancel: 'No',
         );
       } else {
+        controller.clearValues();
+
         return true;
       }
       return false;
@@ -135,13 +136,14 @@ class TodoEdit extends StatelessWidget {
 
               final todo = Todo(
                 description: controller.description.value.value.text,
-                id: todoId ?? shortid.generate(),
+                todoId: todoId ?? shortid.generate(),
                 title: controller.title.value.value.text,
                 completed: controller.isCompleted.value,
               );
 
               await model.save(todo);
               controller.clearValues();
+              // ignore: use_build_context_synchronously
               ScaffoldMessenger.of(context).toast('Todo saved!');
               Get.back(closeOverlays: true);
             }
@@ -161,8 +163,6 @@ extension on ScaffoldMessengerState {
     showSnackBar(
       SnackBar(
         content: Text(message),
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.fixed,
       ),
     );
   }

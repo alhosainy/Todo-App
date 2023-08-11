@@ -8,7 +8,7 @@ abstract class Routes {
   static const INITIAL = '/';
   static const HOME = '/home';
   static const EDITTODO = '/editTodo/';
-  static final EdiTodo_W_PARAMS = '/editTodo/:id';
+  static const EdiTodo_W_PARAMS = '/editTodo/:id';
 }
 
 abstract class AppPages {

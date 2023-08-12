@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../themes.dart';
 
+import '../../data/shared_prefrences/controller.dart';
 import '../../res/colors.dart';
 import '../../res/dimens.dart';
 import '../pages.dart';
@@ -15,6 +15,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ViewModelController controller =
         Get.put(ViewModelController(), permanent: true);
+    final themeController = Get.find<SharedPrefrencesController>();
 
     final activeTodos = controller.activeTodos;
     final completedTodos = controller.completedTodos;
@@ -38,11 +39,11 @@ class MainPage extends StatelessWidget {
               return [
                 PopupMenuItem(
                   child: const Text('Light Theme'),
-                  onTap: () => Get.changeTheme(lightTheme),
+                  onTap: () => themeController.setLightTheme(),
                 ),
                 PopupMenuItem(
                   child: const Text('Dark Theme'),
-                  onTap: () => Get.changeTheme(darkTheme),
+                  onTap: () => themeController.setDarkTheme(),
                 ),
               ];
             },

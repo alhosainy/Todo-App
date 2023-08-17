@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_do_app/src/data/shared_prefrences/controller.dart';
-import 'package:to_do_app/src/presentation/pages.dart';
-import 'package:to_do_app/src/presentation/themes.dart';
+import 'src/presentation/pages.dart';
+import 'src/presentation/themes.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() async {
@@ -25,6 +25,7 @@ void main() async {
       enableLog: true,
     ),
   );
-  final controller = Get.put(SharedPrefrencesController(),permanent: true);
+  final controller = Get.put(SharedPrefrencesController(), permanent: true);
   controller.getTheme();
+ 
 }

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import '../../data/repository/controller.dart';
+import 'delete_all_todo_impl.dart';
+import 'delete_all_todos.dart';
 import 'delete_todo.dart';
 import 'delete_todo_impl.dart';
 import 'get_todo.dart';
@@ -25,4 +27,6 @@ class UseCaseController extends GetxController {
   final Rx<DeleteTodoUseCase> deleteTodoUseCase =
       DeleteTodoUseCaseImpl(Get.put(TodosController()).todosController.value)
           .obs;
+  final Rx<DeleteAllTodos> deleteAllTodos =
+      DeleteAllTodosImpl(Get.put(TodosController()).todosController.value).obs;
 }

@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../data/repository/controller.dart';
 import '../../res/colors.dart';
 import '../pages.dart';
 
@@ -22,6 +24,8 @@ class _InitialPageState extends State<InitialPage> {
 
   @override
   Widget build(BuildContext context) {
+    final todoController = Get.put(TodosController(), permanent: true);
+    todoController.todosController.value.openDB();
     return Container(
       color: Theme.of(context).colorScheme.background,
       child: Column(children: <Widget>[

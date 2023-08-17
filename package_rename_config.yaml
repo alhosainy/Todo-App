@@ -1,0 +1,31 @@
+# dart run package_rename
+
+package_rename_config:
+  android:
+    app_name: ToDo
+    package_name: com.blackbear.toDoApp
+    override_old_package: com.example.to_do_app
+
+  # ios:
+  #   app_name: ToDo
+  #   bundle_name: ToDo
+  #   package_name: com.blackbear.toDoApp
+
+  linux:
+    app_name: ToDo
+    package_name: com.blackbear.toDoApp
+    exe_name: ToDo-linux-x64
+
+  # macos:
+  #   app_name: ToDo
+  #   package_name: com.blackbear.toDoApp
+  #   copyright_notice: Copyright ©️ 2023 OutdatedGuy. All rights reserved.
+
+  web:
+    app_name: ToDo
+    description: A simple todo app
+  windows:
+    app_name: ToDo
+    organization: BlackBear
+    copyright_notice: Copyright ©️ 2023 OutdatedGuy. All rights reserved.
+    exe_name: ToDo-win32

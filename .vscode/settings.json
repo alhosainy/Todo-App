@@ -5,6 +5,7 @@
     "autofocus",
     "autoincrement",
     "Autovalidate",
+    "blackbear",
     "columntodo",
     "cupertino",
     "dimens",
@@ -25,5 +26,7 @@
     "**/todo.freezed.dart": true,
     "**/todos.g.dart": true,
     "**/todos.freezed.dart": true
-  }
+  },
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "cmake.sourceDirectory": "D:/AndroidPrograming/apps_flutter/to_do_app/windows/flutter"
 }

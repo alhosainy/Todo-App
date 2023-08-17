@@ -1,0 +1,16 @@
+# dart run icons_launcher:create
+
+icons_launcher:
+  image_path: "assets/todo.png"
+  platforms:
+    android:
+      enable: true
+      image_path: "assets/todo.png"
+
+    ios:
+      enable: true
+      image_path: "assets/todo.png"
+
+    windows:
+      enable: true
+      image_path: "assets/todo.png"

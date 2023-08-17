@@ -15,6 +15,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ViewModelController controller =
         Get.put(ViewModelController(), permanent: true);
+    controller.getTodos();
     final themeController = Get.find<SharedPrefrencesController>();
 
     final activeTodos = controller.activeTodos;
@@ -30,7 +31,6 @@ class MainPage extends StatelessWidget {
           IconButton(
             color: Colors.white,
             onPressed: () => Get.toNamed(Routes.EDITTODO),
-            splashColor: Colors.brown[100],
             icon: const Icon(Icons.add),
             tooltip: 'Add Todo',
           ),
@@ -45,12 +45,16 @@ class MainPage extends StatelessWidget {
                   child: const Text('Dark Theme'),
                   onTap: () => themeController.setDarkTheme(),
                 ),
+                PopupMenuItem(
+                    child: const Text('Delete All Todos'),
+                    onTap: () => controller.deleteAllTodos()),
               ];
             },
           )
         ],
       ),
       body: Obx(() {
+        controller.getTodos();
         return Column(
           children: [
             Expanded(

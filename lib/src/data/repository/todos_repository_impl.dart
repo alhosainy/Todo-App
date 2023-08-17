@@ -25,16 +25,16 @@ class TodosRepositoryImpl extends TodosRepository {
 
   @override
   Future<Todos> loadTodos() async {
-    await database.openDb();
-
-    final content = await database.getAllTodos();
-    if (content == null) return Todos(todos: []);
-    return content;
+    final todos = await database.getAllTodos() ?? Todos(todos: []);
+    return todos;
   }
 
   @override
   Future<void> saveTodo(Todo todo) async {
-    await database.openDb();
     database.insertTodo(todo);
+  }
+
+  Future openDB() async {
+    await database.openDb();
   }
 }

@@ -22,7 +22,7 @@ class TodoEdit extends StatelessWidget {
     final controller = Get.put(EditTodoController(), permanent: true);
     final model = Get.find<ViewModelController>();
 
-    model.logger.value.i('controllers updated with id: $todoId');
+    ViewModelController.logger.value.i('controllers updated with id: $todoId');
     if (todoId != null) {
       model.getTodo(todoId!).then((value) {
         if (value != null) {
@@ -145,6 +145,8 @@ class TodoEdit extends StatelessWidget {
               controller.clearValues();
               // ignore: use_build_context_synchronously
               ScaffoldMessenger.of(context).toast('Todo saved!');
+              //wait for the toast to finish
+              // await Future.delayed(const Duration(seconds: 1));
               Get.back(closeOverlays: true);
             }
           },

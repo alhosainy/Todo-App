@@ -5,7 +5,7 @@ import '../../domain/models/todos.dart';
 import '../../domain/usecases/controller.dart';
 
 class ViewModelController extends GetxController {
-  var logger = Logger().obs;
+  static var logger = Logger().obs;
 
   final Rx<Todos> todosList = Todos(todos: []).obs;
   final UseCaseController todosListController =
@@ -23,12 +23,15 @@ class ViewModelController extends GetxController {
     todosList.value = await todosListController.getTodosController.value.call();
     activeTodos.value = todosList.value.unCompleted;
     completedTodos.value = todosList.value.completed;
+    activeTodos.refresh();
+    completedTodos.refresh();
     todosList.refresh();
   }
 
   Future<void> save(Todo todo) async {
     await todosListController.saveTodoUseCase.value.call(todo);
-    await getTodos();
+
+    // await getTodos();
   }
 
   Future<Todo?> getTodo(String id) async {
@@ -37,6 +40,11 @@ class ViewModelController extends GetxController {
 
   Future<void> deleteTodo(String todoId) async {
     await todosListController.deleteTodoUseCase.value.call(todoId);
+    await getTodos();
+  }
+
+  Future<void> deleteAllTodos() async {
+    await todosListController.deleteAllTodos.value.call();
     await getTodos();
   }
 }

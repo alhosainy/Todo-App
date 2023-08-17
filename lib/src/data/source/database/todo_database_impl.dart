@@ -31,7 +31,8 @@ class TodoDatabaseControllerImpl extends TodoDatabaseController {
 
   @override
   Future<Todos?> getAllTodos() async {
-    final todos = await db.rawQuery('SELECT * FROM todo');
+    await openDb();
+    final todos = await db.query(tableTodo);
     final newTodos = todos.map((todo) {
       final completed = todo['completed'] == 1 ? true : false;
       return Todo.fromJson({...todo, 'completed': completed});
@@ -56,7 +57,6 @@ class TodoDatabaseControllerImpl extends TodoDatabaseController {
 
   @override
   Future<int> insertTodo(Todo todo) async {
-    await openDb();
     final todos = await db.query(tableTodo,
         columns: [columnId, columntodoId, columnCompleted, columnTitle],
         where: '$columntodoId = ?',

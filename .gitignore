@@ -46,3 +46,4 @@ app.*.map.json
 
 upload-keystore.jks*
 key.properties
+/generatted_exe

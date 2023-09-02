@@ -27,5 +27,4 @@ void main() async {
   );
   final controller = Get.put(SharedPrefrencesController(), permanent: true);
   controller.getTheme();
- 
 }

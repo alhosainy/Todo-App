@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shortid/shortid.dart';
@@ -22,7 +23,10 @@ class TodoEdit extends StatelessWidget {
     final controller = Get.put(EditTodoController(), permanent: true);
     final model = Get.find<ViewModelController>();
 
-    ViewModelController.logger.value.i('controllers updated with id: $todoId');
+    if (kDebugMode) {
+      ViewModelController.logger.value
+          .i('controllers updated with id: $todoId');
+    }
     if (todoId != null) {
       model.getTodo(todoId!).then((value) {
         if (value != null) {
